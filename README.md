@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 SpreeWebHooks
 =============
 
@@ -37,3 +38,7 @@ require 'spree_web_hooks/factories'
 ```
 
 Copyright (c) 2015 [name of extension creator], released under the New BSD License
+=======
+# spree_web_hooks
+spree_web_hooks
+>>>>>>> 5e999fa91f0ec7c0cda3b5a02e0768b325a027a4
