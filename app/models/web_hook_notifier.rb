@@ -1,6 +1,8 @@
 class WebHookNotifier
   include HTTParty
 
+  format :json
+
   def initialize(object)
     @hook = object
   end
@@ -9,7 +11,7 @@ class WebHookNotifier
   def deliver!(data)
     begin
       response = ::Http::Exceptions.wrap_and_check do
-        self.class.post(@hook.address, body: JSON.dump(data))
+        self.class.post(@hook.address, body: data, headers: {'Content-Type' => 'application/json', 'Accept' => 'application/json'})
       end
     rescue ::Http::Exceptions::HttpException => e
       e.response ? e.response.code : nil
