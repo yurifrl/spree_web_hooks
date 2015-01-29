@@ -18,7 +18,7 @@ class AddFieldsToWebHooksLogTable < ActiveRecord::Migration
       remove_column :spree_web_hooks_logs, :hook_address
     end
     unless column_exists? :spree_web_hooks_logs, :hook_id
-      add_column :spree_web_hooks_logs, :hook_id
+      add_column :spree_web_hooks_logs, :hook_id, :integer
     end
   end
 end
