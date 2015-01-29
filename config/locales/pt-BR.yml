@@ -21,8 +21,8 @@ pt-BR:
         name: Pedido Criado
         description: Pedido Criado
       order_update:
-        name: "Pedido Alterado"
-        description: "Pedido Alterado"
+        name: Pedido Alterado
+        description: Pedido Alterado
       order_payment:
         name: "order_payment"
         description: "order_payment"
