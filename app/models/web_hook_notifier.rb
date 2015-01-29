@@ -11,19 +11,20 @@ class WebHookNotifier
   def deliver!(data)
     begin
       response = ::Http::Exceptions.wrap_and_check do
-        self.class.post(@hook.address, body: data, headers: {'Content-Type' => 'application/json', 'Accept' => 'application/json'})
+        self.class.post(@hook.address, body: data)
       end
     rescue ::Http::Exceptions::HttpException => e
-      e.response ? e.response.code : nil
       Spree::WebHooks::Log.create do |log|
-        log.response = e.message
+        log.msg = e.response.message
+        log.response = e.response.inspect
         log.event_name = @hook.event.name
         log.hook_address = @hook.address
         log.http_status = e.response ? e.response.code : nil
       end
     rescue Exception => e
       Spree::WebHooks::Log.create do |log|
-        log.response = e.message
+        log.msg = e.response.message
+        log.response = e.response.inspect
         log.event_name = @hook.event.name
         log.hook_address = @hook.address
         log.http_status = nil
@@ -31,7 +32,8 @@ class WebHookNotifier
     end
 
     Spree::WebHooks::Log.create do |log|
-      log.response = response.message
+      log.msg = response.message
+      log.response = response.inspect
       log.event_name = @hook.event.name
       log.hook_address = @hook.address
       log.http_status = response.response ? response.response.code : nil

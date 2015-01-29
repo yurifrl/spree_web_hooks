@@ -7,6 +7,7 @@ pt-BR:
     edit_web_hook: Editando WebHook
     spree_web_hooks:
       response: Retorno
+      msg: Menssagem
       notification_type: Tipo de Notificação
       url: Url
       http_status: HTTP Status
