@@ -13,13 +13,13 @@
       <div class="form-group field">
         <label><%= Spree.t('spree_web_hooks.notification_type') %></label>
 
-        <div><%= @web_hook_log.hook.event.name %></div>
+        <div><%= @web_hook_log.event_name %></div>
       </div>
 
       <div class="form-group field">
         <label><%= Spree.t('spree_web_hooks.url') %></label>
 
-        <div><%= @web_hook_log.hook.event.name %></div>
+        <div><%= @web_hook_log.hook_address %></div>
       </div>
 
       <div class="form-group field">
