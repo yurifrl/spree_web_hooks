@@ -1,0 +1,73 @@
+<% content_for :page_title do %>
+    <%= Spree.t(:web_hook) %>
+<% end %>
+
+<% content_for :page_actions do %>
+    <%= button_link_to Spree.t(:new_web_hook), new_admin_web_hook_url, {:class => 'btn-success', :icon => 'add'} %>
+<% end if can?(:create, Spree::Product) %>
+
+
+<%= render :partial => 'spree/admin/shared/index_table_options', :locals => {:collection => @collection} %>
+
+<% if @collection.any? %>
+    <table class="table">
+      <thead>
+      <tr>
+        <th><%= Spree.t('spree_web_hooks.notification_type') %></th>
+        <th><%= Spree.t('spree_web_hooks.url') %></th>
+        <th><%= Spree.t('spree_web_hooks.send_data') %></th>
+        <th class="actions"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @collection.each do |web_hook| %>
+          <tr>
+            <td><%= web_hook.event.name %></td>
+            <td><%= link_to web_hook.address %></td>
+            <td><%= web_hook.send_data? %></td>
+            <td class="actions actions-3 text-right">
+              <%= link_to_edit web_hook, :no_text => true, :class => 'edit', url: edit_admin_web_hook_path(web_hook) %>
+              <%= link_to_delete web_hook, :no_text => true, url: admin_web_hook_path(web_hook) %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% else %>
+    <div class="alert alert-info no-objects-found">
+      <%= Spree.t(:no_resource_found, resource: "Web Hook") %>,
+      <%= link_to Spree.t(:add_one), spree.new_admin_web_hook_url %>!
+    </div>
+<% end %>
+
+<%= render :partial => 'spree/admin/shared/index_table_options', :locals => {:collection => @collection} %>
+
+<legend><%= Spree.t('spree_web_hooks.history_description') %></legend>
+
+<% if @web_hook_logs.any? %>
+    <table class="table">
+      <thead>
+      <tr>
+        <th><%= Spree.t('spree_web_hooks.notification_type') %></th>
+        <th><%= Spree.t('spree_web_hooks.url') %></th>
+        <th><%= Spree.t('spree_web_hooks.http_status') %></th>
+        <th><%= Spree.t('spree_web_hooks.data') %></th>
+        <th class="actions"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @web_hook_logs.each do |web_hook_log| %>
+          <tr>
+            <td><%= web_hook_log.hook.event.name %></td>
+            <td><%= link_to web_hook_log.hook.address %></td>
+            <td><%= link_to((web_hook_log.http_status || web_hook_log.response.truncate(100)), log_admin_web_hooks_path(web_hook_log)) %></td>
+            <td><%= web_hook_log.created_at.strftime("%d-%m-%Y %H:%M") %></td>
+            <td class="actions actions-3 text-right">
+              <%= link_to_with_icon('clone', Spree.t(:edit), log_admin_web_hooks_path(web_hook_log), {class: 'btn btn-primary btn-sm', no_text: true}) %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+

@@ -1,0 +1,12 @@
+<% content_for :page_title do %>
+    <%= Spree.t(:new_web_hook) %>
+<% end %>
+
+<%= render :partial => 'spree/admin/shared/error_messages', :locals => {:target => @web_hook} %>
+
+<%= form_for [:admin, @web_hook], url: admin_web_hooks_url, :html => {:multipart => true} do |f| %>
+    <fieldset>
+      <%= render :partial => 'form', :locals => {:f => f} %>
+      <%= render :partial => 'spree/admin/shared/new_resource_links', locals: {collection_url: admin_web_hooks_url} %>
+    </fieldset>
+<% end %>

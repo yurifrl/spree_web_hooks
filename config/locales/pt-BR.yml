@@ -1,29 +1,19 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-en:
+pt-BR:
   spree:
-    web_hook: WebHook
-    new_web_hook: Novo WebHook
-    web_hook_logs: Log
-    edit_web_hook: Editando WebHook
     spree_web_hooks:
-      response: Retorno
-      notification_type: Tipo de Notificação
-      url: Url
-      http_status: HTTP Status
-      data: Data
-      history_description: Histórico (últimos 20 registros)
       event: Selecione uma ação desejada
       send_data: ENVIAR DADOS NO FORMATO JSON
       address: Informe a URL que será notificada (POST)
-      secret: Segredo
+      secret: Secret
       content_type: Content Type
       order_create:
         name: Pedido Criado
         description: Pedido Criado
       order_update:
         name: "Pedido Alterado"
-        description: "Pedido Alterado"
+        description: "order_update"
       order_payment:
         name: "order_payment"
         description: "order_payment"

@@ -1,2 +1,5 @@
 require 'spree_core'
+require 'httparty'
 require 'spree_web_hooks/engine'
+# require 'spree_web_hooks/web_hook_notifier'
+# require 'spree_web_hooks/web_hook_callbacks'

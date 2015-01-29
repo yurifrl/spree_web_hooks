@@ -3,20 +3,21 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_web_hooks'
   s.version     = '2.4.2'
-  s.summary     = 'TODO: Add gem summary here'
-  s.description = 'TODO: Add (optional) gem description here'
+  s.summary     = 'Add Web Hooks to spree'
+  s.description = 'Add some web hooks to some active record callbacks'
   s.required_ruby_version = '>= 1.9.3'
 
-  # s.author    = 'You'
-  # s.email     = 'you@example.com'
-  # s.homepage  = 'http://www.spreecommerce.com'
+  s.author    = 'Yuri Freire Lima'
+  s.email     = 'yurifreire@azclick.com'
+  s.homepage  = 'http://www.azclick.com'
 
   #s.files       = `git ls-files`.split("\n")
   #s.test_files  = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 2.4.2'
+  s.add_dependency 'spree_core'
+  s.add_dependency 'http-exceptions'
 
   s.add_development_dependency 'capybara', '~> 2.4'
   s.add_development_dependency 'coffee-rails'

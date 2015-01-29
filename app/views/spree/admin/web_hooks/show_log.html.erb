@@ -1,0 +1,47 @@
+<% content_for :page_title do %>
+    <%= Spree.t(:web_hook_logs) %>
+<% end %>
+
+<% content_for :page_actions do %>
+    <%= button_link_to Spree.t(:new_web_hook), new_admin_web_hook_url, {:class => "btn-default", :icon => 'chevron-left'} %>
+<% end %>
+
+<fieldset>
+  <div class="row">
+
+    <div class="col-md-8">
+      <div class="form-group field">
+        <label><%= Spree.t('spree_web_hooks.notification_type') %></label>
+
+        <div><%= @web_hook_log.hook.event.name %></div>
+      </div>
+
+      <div class="form-group field">
+        <label><%= Spree.t('spree_web_hooks.url') %></label>
+
+        <div><%= @web_hook_log.hook.event.name %></div>
+      </div>
+
+      <div class="form-group field">
+        <label><%= Spree.t('spree_web_hooks.http_status') %></label>
+
+        <div><%= @web_hook_log.http_status %></div>
+      </div>
+
+      <div class="form-group field">
+        <label><%= Spree.t('spree_web_hooks.data') %></label>
+
+        <div><%= @web_hook_log.created_at.strftime("%d-%m-%Y %H:%M") %></div>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <div class="form-group field">
+        <label><%= Spree.t('spree_web_hooks.response') %></label>
+        <pre><%= @web_hook_log.response %></pre>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</fieldset>

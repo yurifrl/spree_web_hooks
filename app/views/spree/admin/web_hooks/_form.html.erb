@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-4">
+    <%= f.field_container :event_id, :class => ['form-group'] do %>
+        <%= f.label :event_id, raw(Spree.t("spree_web_hooks.event") + content_tag(:span, ' *', :class => 'required')) %>
+        <%= f.select :event_id, Spree::WebHooks::Event.pluck(:name, :id).map { |o| [Spree.t("spree_web_hooks.#{o[0]}.name"), o[1]] }, {}, class: "select2" %>
+        <%= f.error_message_on :event_id %>
+    <% end %>
+
+    <%= f.field_container :send_data, :class => ['form-group'] do %>
+        <%= f.label :send_data, raw(Spree.t("spree_web_hooks.send_data")) %>
+        <%= f.check_box :send_data, {} %>
+        <%= f.error_message_on :send_data %>
+    <% end %>
+
+    <%= f.field_container :address, :class => ['form-group'] do %>
+        <%= f.label :address, raw(Spree.t("spree_web_hooks.address") + content_tag(:span, ' *', :class => "required")) %>
+        <%= f.text_field :address, :class => 'form-control title' %>
+        <%= f.error_message_on :address %>
+    <% end %>
+  </div>
+</div>
