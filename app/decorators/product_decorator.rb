@@ -1,5 +1,5 @@
 module Spree
-  Order.class_eval do
+  Product.class_eval do
     include WebHookCallbacks
 
     def web_hook_actions

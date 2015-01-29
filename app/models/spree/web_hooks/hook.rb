@@ -5,7 +5,6 @@ module Spree
       self.table_name = :spree_web_hooks_hooks
 
       belongs_to :event, class_name: Spree::WebHooks::Event
-      has_one :log, class_name: Spree::WebHooks::Log, dependent: :destroy
 
       # enum content_type: [['application/json', 1], ['application/x-www-form-urlencoded', 2]]
 

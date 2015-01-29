@@ -11,15 +11,15 @@ module WebHookCallbacks
   # Get Callback Type
   # If it match a existing one, Add to notification stack
   def notify_after_create
-    NotifyJob.perform('create', self) if web_hook_actions.include? :create
+    NotifyJob.perform_later('create', self, Apartment::Tenant.current) if web_hook_actions.include? :create
   end
 
   def notify_after_update
-    NotifyJob.perform('update', self) if web_hook_actions.include? :update
+    NotifyJob.perform_later('update', self, Apartment::Tenant.current) if web_hook_actions.include? :update
   end
 
   def notify_after_destroy
-    NotifyJob.perform('destroy', self) if web_hook_actions.include? :destroy
+    NotifyJob.perform_later('destroy', self, Apartment::Tenant.current) if web_hook_actions.include? :destroy
   end
 
   # def after_transition(object, transition)
