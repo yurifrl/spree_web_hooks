@@ -22,7 +22,7 @@
       <tbody>
       <% @collection.each do |web_hook| %>
           <tr>
-            <td><%= web_hook.event.name %></td>
+            <td><%= Spree.t("spree_web_hooks.#{web_hook.event.name}.name") %></td>
             <td><%= link_to web_hook.address %></td>
             <td><%= web_hook.send_data? %></td>
             <td class="actions actions-3 text-right">
@@ -58,7 +58,7 @@
       <tbody>
       <% @web_hook_logs.each do |web_hook_log| %>
           <tr>
-            <td><%= web_hook_log.hook.event.name %></td>
+            <td><%= Spree.t("spree_web_hooks.#{web_hook_log.hook.event.name}.name") %></td>
             <td><%= link_to web_hook_log.hook.address %></td>
             <td><%= link_to((web_hook_log.http_status || web_hook_log.response.truncate(100)), log_admin_web_hooks_path(web_hook_log)) %></td>
             <td><%= web_hook_log.created_at.strftime("%d-%m-%Y %H:%M") %></td>
