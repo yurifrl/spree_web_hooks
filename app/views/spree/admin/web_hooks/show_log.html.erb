@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :page_actions do %>
-    <%= button_link_to Spree.t(:new_web_hook), new_admin_web_hook_url, {:class => "btn-default", :icon => 'chevron-left'} %>
+    <%= button_link_to Spree.t(:new_web_hook), admin_web_hooks_path, {:class => "btn-default", :icon => 'chevron-left'} %>
 <% end %>
 
 <fieldset>
