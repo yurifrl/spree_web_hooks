@@ -12,22 +12,23 @@
         <%= f.error_message_on :address %>
     <% end %>
 
+    <%= f.field_container :content_type, :class => ['form-group'] do %>
+        <%= f.label :content_type, raw(Spree.t("spree_web_hooks.content_type") + content_tag(:span, ' *', :class => "required")) %>
+        <%= f.select :content_type, [['application/json', 1], ['application/x-www-form-urlencoded', 2]], {}, {class: 'select2'} %>
+        <%= f.error_message_on :content_type %>
+    <% end %>
+
     <%= f.field_container :send_data, :class => ['form-group'] do %>
-        <h4>Entenda os riscos:</h4>
+        <div class="alert alert-warning">
+          <h4>Entenda os riscos:</h4>
 
-        Utilizando a opção de enviar dados no formato JSON, você ou um terceiro esta se responsabilizando com a
-        recepção dos dados. Caso queira que a URL apenas receba uma notificação via POST contendo infoemações
-        para serem acessadas posteriormente pela API, deixe desabilitado o campo abaixo.
-
+          Utilizando a opção de enviar dados no formato JSON, você ou um terceiro esta se responsabilizando com a
+          recepção dos dados. Caso queira que a URL apenas receba uma notificação via POST contendo infoemações
+          para serem acessadas posteriormente pela API, deixe desabilitado o campo abaixo.
+        </div>
         <%= f.label :send_data, raw(Spree.t("spree_web_hooks.send_data")) %>
         <%= f.check_box :send_data, {} %>
         <%= f.error_message_on :send_data %>
-    <% end %>
-
-    <%= f.field_container :content_type, :class => ['form-group'] do %>
-        <%= f.label :content_type, raw(Spree.t("spree_web_hooks.content_type") + content_tag(:span, ' *', :class => "required")) %>
-        <%= f.select :content_type, [['application/json', 1], ['application/x-www-form-urlencoded', 2]], :class => 'form-control title' %>
-        <%= f.error_message_on :content_type %>
     <% end %>
   </div>
 </div>
