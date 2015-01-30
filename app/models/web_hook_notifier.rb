@@ -10,7 +10,8 @@ class WebHookNotifier
   def deliver!(data)
     begin
       response = ::Http::Exceptions.wrap_and_check do
-        self.class.post(@hook.address, body: {json: data}, headers: {'Content-Type' => 'application/json', 'Accept' => 'application/json'})
+        content_type = @hook.content_type == 2 ? 'application/x-www-form-urlencoded' : 'application/json'
+        self.class.post(@hook.address, body: {json: data}, headers: {'Content-Type' => content_type, 'Accept' => content_type})
       end
     rescue ::Http::Exceptions::HttpException => e
       Spree::WebHooks::Log.create do |log|

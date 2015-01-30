@@ -23,5 +23,11 @@
         <%= f.check_box :send_data, {} %>
         <%= f.error_message_on :send_data %>
     <% end %>
+
+    <%= f.field_container :content_type, :class => ['form-group'] do %>
+        <%= f.label :content_type, raw(Spree.t("spree_web_hooks.content_type") + content_tag(:span, ' *', :class => "required")) %>
+        <%= f.select :content_type, [['application/json', 1], ['application/x-www-form-urlencoded', 2]], :class => 'form-control title' %>
+        <%= f.error_message_on :content_type %>
+    <% end %>
   </div>
 </div>
