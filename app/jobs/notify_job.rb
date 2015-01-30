@@ -1,5 +1,5 @@
 class NotifyJob < ActiveJob::Base
-  queue_as :default
+  queue_as :web_hooks
 
   def perform(action, model)
     model_name = model.class.name.split('::').last.underscore
