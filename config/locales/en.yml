@@ -1,13 +1,13 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 en:
   spree:
     web_hook: WebHook
+    web_hooks: WebHooks
     new_web_hook: Novo WebHook
     web_hook_logs: Log
     edit_web_hook: Editando WebHook
     spree_web_hooks:
       response: Retorno
+      msg: Menssagem
       notification_type: Tipo de Notificação
       url: Url
       http_status: HTTP Status
@@ -22,86 +22,35 @@ en:
         name: Pedido Criado
         description: Pedido Criado
       order_update:
-        name: "Pedido Alterado"
-        description: "Pedido Alterado"
-      order_payment:
-        name: "order_payment"
-        description: "order_payment"
-      order_cancel:
-        name: "order_cancellation"
-        description: "order_cancellation"
-      order_fulfillment:
-        name: "order_fulfillment"
-        description: "order_fulfillment"
+        name: Pedido Alterado
+        description: Pedido Alterado
       order_destroy:
-        name: "order_destroy"
-        description: "order_destroy"
+        name: Pedido Apagado
+        description: Pedido Apagado
       product_create:
-        name: "product_create"
-        description: "product_create"
+        name: Produto Criado
+        description: Produto Criado
       product_update:
-        name: "product_update"
-        description: "product_update"
+        name: Produto Alterado
+        description: Produto Alterado
       product_destroy:
-        name: "product_destroy"
-        description: "product_destroy"
-      cart_create:
-        name: "cart_create"
-        description: "cart_create"
-      cart_update:
-        name: "cart_update"
-        description: "cart_update"
-      collection_create:
-        name: "collection_create"
-        description: "collection_create"
-      collection_update:
-        name: "collection_update"
-        description: "collection_update"
-      collection_destroy:
-        name: "collection_destroy"
-        description: "collection_destroy"
-      customer_group:
-        name: "customer_group"
-        description: "customer_group"
-      customer_group:
-        name: "customer_group"
-        description: "customer_group"
-      customer_group:
-        name: "customer_group"
-        description: "customer_group"
-      checkout_create:
-        name: "checkout_create"
-        description: "checkout_create"
-      checkout_update:
-        name: "checkout_update"
-        description: "checkout_update"
-      checkout_destroy:
-        name: "checkout_destroy"
-        description: "checkout_destroy"
-      fulfillment_create:
-        name: "fulfillment_create"
-        description: "fulfillment_create"
-      fulfillment_update:
-        name: "fulfillment_update"
-        description: "fulfillment_update"
-      customer_create:
-        name: "customer_create"
-        description: "customer_create"
-      customer_enable:
-        name: "customer_enable"
-        description: "customer_enable"
-      customer_disable:
-        name: "customer_disable"
-        description: "customer_disable"
-      customer_update:
-        name: "customer_update"
-        description: "customer_update"
-      customer_destroy:
-        name: "customer_destroy"
-        description: "customer_destroy"
-      shop_update:
-        name: "shop_update"
-        description: "shop_update"
-      refund_create:
-        name: "refund_create"
-        description: "refund_create"
+        name: Produto Apagado
+        description: Produto Apagado
+      payment_create:
+        name: Pagamento Criado
+        description: Pagamento Criado
+      payment_update:
+        name: Pagamento Alterado
+        description: Pagamento Alterado
+      payment_destroy:
+        name: Pagamento Apagado
+        description: Pagamento Apagado
+      user_create:
+        name: Usuario Criado
+        description: Usuario Criado
+      user_update:
+        name: Usuario Alterado
+        description: Usuario Alterado
+      user_destroy:
+        name: Usuario Apagado
+        description: Usuario Apagado

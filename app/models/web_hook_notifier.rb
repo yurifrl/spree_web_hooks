@@ -7,7 +7,6 @@ class WebHookNotifier
     @hook = object
   end
 
-  #
   def deliver!(data)
     begin
       response = ::Http::Exceptions.wrap_and_check do
@@ -21,22 +20,25 @@ class WebHookNotifier
         log.hook_address = @hook.address
         log.http_status = e.response ? e.response.code : nil
       end
+      return e.response
     rescue Exception => e
       Spree::WebHooks::Log.create do |log|
-        log.msg = e.response.message
-        log.response = e.response.inspect
+        log.msg = e.message
+        log.response = e.inspect
         log.event_name = @hook.event.name
         log.hook_address = @hook.address
         log.http_status = nil
       end
-    end
-
-    Spree::WebHooks::Log.create do |log|
-      log.msg = response.message
-      log.response = response.inspect
-      log.event_name = @hook.event.name
-      log.hook_address = @hook.address
-      log.http_status = response.response ? response.response.code : nil
+      return false
+    else
+      Spree::WebHooks::Log.create do |log|
+        log.msg = response.message
+        log.response = response.inspect
+        log.event_name = @hook.event.name
+        log.hook_address = @hook.address
+        log.http_status = response.response ? response.response.code : nil
+      end
+      return response
     end
   end
 end
