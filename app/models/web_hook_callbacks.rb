@@ -11,26 +11,28 @@ module WebHookCallbacks
   # Get Callback Type
   # If it match a existing one, Add to notification stack
   def notify_after_create
-    NotifyJob.perform_later('create', self) if web_hook_actions.include? :create
+    Spree::WebHooks::Hook.create_notifications('create', self)
   end
 
   def notify_after_update
-    NotifyJob.perform_later('update', self) if web_hook_actions.include? :update
+    Spree::WebHooks::Hook.create_notifications('update', self)
   end
 
   def notify_after_destroy
-    NotifyJob.perform_later('destroy', self) if web_hook_actions.include? :destroy
+    Spree::WebHooks::Hook.create_notifications('destroy', self)
   end
-
-  # def after_transition(object, transition)
-  #   byebug
-  # end
 
   # Get the host url to generate the api url
   def host_url
     Rails.application.routes.default_url_options[:host] || Spree::Store.current.url
   end
 
-  def web_hook_url; raise 'method missing'; end
-  def web_hook_actions; raise 'method missing'; end
+  def web_hook_json#_formated_object
+    # Render habl json if send data
+    # Send url of the current object
+    self.to_json
+  end
+
+  def web_hook_url; raise 'method web_hook_url missing'; end
+  def web_hook_actions; raise 'method web_hook_actions missing'; end
 end

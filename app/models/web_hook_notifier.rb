@@ -3,40 +3,44 @@ class WebHookNotifier
 
   format :json
 
-  def initialize(object)
-    @hook = object
+  def initialize(notification, log)
+    @notification = notification
+    @log = log
   end
 
   def deliver!(data)
     begin
       response = ::Http::Exceptions.wrap_and_check do
-        content_type = @hook.content_type == 2 ? 'application/x-www-form-urlencoded' : 'application/json'
-        self.class.post(@hook.address, body: {json: data}, headers: {'Content-Type' => content_type, 'Accept' => content_type})
+        content_type = @notification.hook_content_type == 2 ? 'application/x-www-form-urlencoded' : 'application/json'
+        self.class.post(@notification.hook_address, body: {json: data}, headers: {'Content-Type' => content_type, 'Accept' => content_type})
       end
     rescue ::Http::Exceptions::HttpException => e
-      Spree::WebHooks::Log.create do |log|
-        log.msg = e.parsed_response || e.message
-        log.response = e.inspect
-        log.event_name = @hook.event.name
-        log.hook_address = @hook.address
-        log.http_status = e.response ? e.response.code : nil
-      end
+      @log.msg = e.parsed_response || e.message
+      @log.response = e.inspect
+      @log.event_name = @notification.event.name
+      @log.hook_address = @notification.hook_address
+      @notification.status = @log.http_status = e.response ? e.response.code : nil
     rescue Exception => e
-      Spree::WebHooks::Log.create do |log|
-        log.msg = e.parsed_response || e.message
-        log.response = e.inspect
-        log.event_name = @hook.event.name
-        log.hook_address = @hook.address
-        log.http_status = nil
-      end
+      @log.msg = e.parsed_response || e.message
+      @log.response = e.inspect
+      @log.event_name = @notification.event.name
+      @log.hook_address = @notification.hook_address
+      @log.http_status = nil
     else
-      Spree::WebHooks::Log.create do |log|
-        log.msg = response.parsed_response || response.message
-        log.response = response.inspect
-        log.event_name = @hook.event.name
-        log.hook_address = @hook.address
-        log.http_status = response.response ? response.response.code : nil
-      end
+      @log.msg = response.parsed_response || response.message
+      @log.response = response.inspect
+      @log.event_name = @notification.event.name
+      @log.hook_address = @notification.hook_address
+      @notification.status = @log.http_status = response.response ? response.response.code : nil
     end
+
+    @notification.save
+    @log.save
+
+    if @notification.status != 200 && @notification.attempts <= @notification.max_attempts
+      @notification.notify
+    end
+
+    {notification: @notification, log: @log}
   end
 end

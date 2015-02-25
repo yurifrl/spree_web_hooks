@@ -1,16 +1,20 @@
 pt-BR:
   spree:
+    retry: Tentar novamente
     web_hook: WebHook
     web_hooks: WebHooks
     new_web_hook: Novo WebHook
+    web_hook_notifications: Notificações
     web_hook_logs: Log
     edit_web_hook: Editando WebHook
     spree_web_hooks:
+      max_attempts: Maximo de tentativas
       response: Retorno
       msg: Menssagem
       notification_type: Tipo de Notificação
       url: Url
       http_status: HTTP Status
+      status: Status
       data: Data
       history_description: Histórico (últimos 20 registros)
       event: Selecione uma ação desejada

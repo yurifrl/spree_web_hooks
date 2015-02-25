@@ -1,7 +1,7 @@
 module Spree
   module Admin
     class WebHooksController < Spree::Admin::BaseController
-      before_action :load_resource, except: [:show_log]
+      before_action :load_resource, except: [:show_notification, :retry_notification, :show_log]
 
       def index
         session[:return_to] = request.url
@@ -76,8 +76,19 @@ module Spree
         end
       end
 
+      def show_notification
+        @notification = Spree::WebHooks::Notification.find(params[:id])
+      end
+
       def show_log
         @web_hook_log = Spree::WebHooks::Log.find(params[:id])
+      end
+
+      def retry_notification
+        notification = Spree::WebHooks::Notification.find(params[:id])
+        notification.update_attributes(attempts: 0)
+        notification.notify
+        redirect_to notification_admin_web_hooks_path(notification)
       end
 
       protected
@@ -101,7 +112,7 @@ module Spree
       end
 
       def load_resource
-        @web_hook_logs ||= Spree::WebHooks::Log.order(created_at: :desc).first(20)
+        @web_hook_notifications ||= Spree::WebHooks::Notification.order(created_at: :desc).first(20)
         @web_hook ||= load_resource_instance
         @collection ||= collection
       end

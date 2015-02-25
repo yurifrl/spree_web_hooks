@@ -44,7 +44,7 @@
 
 <legend><%= Spree.t('spree_web_hooks.history_description') %></legend>
 
-<% if @web_hook_logs.any? %>
+<% if @web_hook_notifications.any? %>
     <table class="table">
       <thead>
       <tr>
@@ -56,18 +56,18 @@
       </tr>
       </thead>
       <tbody>
-      <% @web_hook_logs.each do |web_hook_log| %>
+      <% @web_hook_notifications.each do |web_hook_notification| %>
           <tr>
-            <td><%= Spree.t("spree_web_hooks.#{web_hook_log.event_name}.name") %></td>
-            <td><%= link_to web_hook_log.hook_address %></td>
-            <td><%= link_to((web_hook_log.http_status || web_hook_log.msg.truncate(100)), log_admin_web_hooks_path(web_hook_log)) %></td>
-            <td><%= web_hook_log.created_at.strftime("%d-%m-%Y %H:%M") %></td>
+            <td><%= Spree.t("spree_web_hooks.#{web_hook_notification.event.name}.name") %></td>
+            <td><%= link_to web_hook_notification.hook_address %></td>
+            <td><%= link_to((web_hook_notification.status), notification_admin_web_hooks_path(web_hook_notification)) %></td>
+            <td><%= web_hook_notification.created_at.strftime("%d-%m-%Y %H:%M") %></td>
             <td class="actions actions-3 text-right">
-              <%= link_to_with_icon('clone', Spree.t(:edit), log_admin_web_hooks_path(web_hook_log), {class: 'btn btn-primary btn-sm', no_text: true}) %>
+              <%= link_to_with_icon('clone', Spree.t(:show), notification_admin_web_hooks_path(web_hook_notification), {class: 'btn btn-primary btn-sm', no_text: true}) %>
+              <%= link_to_with_icon('share-alt', Spree.t(:retry), retry_notification_admin_web_hooks_path(web_hook_notification), {class: 'btn btn-primary btn-sm', no_text: true}) %>
             </td>
           </tr>
       <% end %>
       </tbody>
     </table>
 <% end %>
-

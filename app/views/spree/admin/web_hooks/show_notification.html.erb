@@ -1,0 +1,67 @@
+<% content_for :page_title do %>
+<%= Spree.t(:web_hook_notifications) %>
+<% end %>
+
+<% content_for :page_actions do %>
+<%= button_link_to Spree.t(:web_hooks), admin_web_hooks_path, {:class => "btn-default", :icon => 'chevron-left'} %>
+<%= button_link_to Spree.t(:retry), retry_notification_admin_web_hooks_path(@notification), {:class => "btn-default", :icon => 'share-alt'} %>
+<% end %>
+
+<fieldset>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="form-group field">
+        <label><%= Spree.t('spree_web_hooks.notification_type') %></label>
+
+        <div><%= @notification.event.name %></div>
+      </div>
+
+      <div class="form-group field">
+        <label><%= Spree.t('spree_web_hooks.url') %></label>
+
+        <div><%= @notification.hook_address %></div>
+      </div>
+
+      <div class="form-group field">
+        <label><%= Spree.t('spree_web_hooks.status') %></label>
+
+        <div><%= @notification.status %></div>
+      </div>
+
+      <div class="form-group field">
+        <label><%= Spree.t('spree_web_hooks.data') %></label>
+
+        <div><%= @notification.created_at.strftime("%d-%m-%Y %H:%M") %></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</fieldset>
+
+<legend><%= Spree.t('spree_web_hooks.history_description') %></legend>
+
+<% if @notification.logs.any? %>
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= Spree.t('spree_web_hooks.url') %></th>
+      <th><%= Spree.t('spree_web_hooks.http_status') %></th>
+      <th><%= Spree.t('spree_web_hooks.data') %></th>
+      <th class="actions"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @notification.logs.each do |log| %>
+    <tr>
+      <td><%= link_to log.hook_address %></td>
+      <td><%= log.http_status %></td>
+      <td><%= log.created_at.strftime("%d-%m-%Y %H:%M") %></td>
+      <td class="actions actions-3 text-right">
+        <%= link_to_with_icon('clone', Spree.t(:edit), log_admin_web_hooks_path(log), {class: 'btn btn-primary btn-sm', no_text: true}) %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

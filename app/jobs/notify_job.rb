@@ -1,10 +1,17 @@
 class NotifyJob < ActiveJob::Base
   queue_as :web_hooks
 
-  def perform(action, model)
-    model_name = model.class.name.split('::').last.underscore
-    Spree::WebHooks::Hook.joins(:event).where(spree_web_hooks_events: { name: "#{model_name}_#{action}" }).each do |e|
-      e.notify(model)
+  def perform(notification, log)
+    obj = notification.notifiable
+    
+    signal = WebHookNotifier.new(notification, log)
+
+    if notification.hook_send_data
+      data = obj.web_hook_json
+    else
+      data = {address: obj.web_hook_url}
     end
+
+    signal.deliver!(data)
   end
 end

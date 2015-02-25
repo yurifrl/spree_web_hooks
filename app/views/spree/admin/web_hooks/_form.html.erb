@@ -18,6 +18,12 @@
         <%= f.error_message_on :content_type %>
     <% end %>
 
+    <%= f.field_container :max_attempts, :class => ['form-group'] do %>
+        <%= f.label :max_attempts, raw(Spree.t("spree_web_hooks.max_attempts")) %>
+        <%= f.number_field :max_attempts, max: 10,class: 'form-control title' %>
+        <%= f.error_message_on :max_attempts %>
+    <% end %>
+
     <%= f.field_container :send_data, :class => ['form-group'] do %>
         <div class="alert alert-warning">
           <h4>Entenda os riscos:</h4>
